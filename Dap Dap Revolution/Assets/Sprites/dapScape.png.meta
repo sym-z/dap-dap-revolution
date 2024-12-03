@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8635d39b97cd7984c9fb2b520f65e1e6
+guid: c7ec8ef1b1acbf8439337566de55ce3b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6350962738307172654
-    second: gecko_0
+      213: -6992382131200738751
+    second: dapScape_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gecko_0
+      name: dapScape_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 529
-        height: 654
+        width: 1920
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -127,8 +127,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e298a8e26f6232850800000000000000
-      internalID: 6350962738307172654
+      spriteID: 14abdf7bf7116fe90800000000000000
+      internalID: -6992382131200738751
       vertices: []
       indices: 
       edges: []
@@ -143,8 +143,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      gecko_0: 6350962738307172654
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
