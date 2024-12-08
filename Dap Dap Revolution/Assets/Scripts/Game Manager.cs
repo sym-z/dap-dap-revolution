@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public GameObject ContinueButton;
     public GameObject GoodToSeeYouText;
     public GameObject dapTarget;
+    public GameObject DapTargetRange;
     public bool dapHitCheck = false;
     public GameObject dapMissedText;
     private GameObject[] phase1Objects;
@@ -26,7 +27,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         buttons = GameObject.FindGameObjectsWithTag("choiceButton");
-        Activator(buttons, false);
+        Activator(buttons, true);
+        ContinueButton.SetActive(false);
         phase1Objects = GameObject.FindGameObjectsWithTag("Phase1");
         Activator(phase1Objects, false);
     }
@@ -55,7 +57,7 @@ public class GameManager : MonoBehaviour
     private void phase1(int buttonID) //Show "Dap me up" plus button
     {
         opener.SetActive(false);
-        ContinueButton.SetActive(false);
+        Activator(buttons, false);
         Activator(phase1Objects, true);
         phase += 1;
         StartCoroutine(DapQTE(buttonID));
@@ -76,17 +78,25 @@ public class GameManager : MonoBehaviour
         switch (buttonID)
         {
             case 1:
+                Activator(buttons, false);
                 whatsUpText.text = "Sounds great!";
                 score += 150;
+                phase += 1;
                 ContinueButton.SetActive(true);
                 break;
             default:
+                Activator(buttons, false);
+                whatsUpText.text = "Cringe...";
+                score += 0;
+                phase += 1;
+                ContinueButton.SetActive(true);
                 break;
         }
     }
 
     private void phase4()   // Begins goodbye QTE choice
     {
+        whatsUpText.text = "Later.";
         // Insert Sonic Unleashed style QTE
     }
 
@@ -125,19 +135,30 @@ public class GameManager : MonoBehaviour
         float timeElapsed = 0;
         float targetTime = timeLength;
         Vector3 endScale = target.transform.localScale;
+        // Changes timeframe and target size based on difficulty of introduction
+        switch (dapType)
+        {
+            case 1:
+                difficulty = .5f;
+                break;
+            case 2:
+                difficulty = .75f;
+                DapTargetRange.transform.localScale = endScale * 1.5f;
+                break;
+            case 3:
+                difficulty = .25f;
+                DapTargetRange.transform.localScale = endScale * .5f;
+                break;
+            default:
+                break;
+        }
         while ((timeElapsed < targetTime) && dapHitCheck == false)
         {
             timeElapsed += Time.deltaTime;
             target.transform.localScale = Vector3.Lerp(Vector3.zero, endScale*2, timeElapsed/targetTime);
             yield return null;
         }
-        // Changes timeframe based on difficulty of introduction
-        switch (dapType)
-        {
-            case 1:
-                difficulty = .5f; 
-                break;
-        }
+        Debug.Log(difficulty);
         // Calculates points on hit based on time taken
         if (dapHitCheck == true)
         {
