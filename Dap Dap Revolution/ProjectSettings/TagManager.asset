@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Phase1
   - choiceButton
+  - Goodbye
   layers:
   - Default
   - TransparentFX
