@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      handshakeButtonBackground_0: -7879517666213496444
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

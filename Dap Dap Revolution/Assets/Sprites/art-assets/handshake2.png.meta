@@ -167,7 +167,9 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      handshake2_0: 1494721801683941753
+      handshake2_1: 2142971752273140196
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
