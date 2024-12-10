@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7d2f7a0d04f5a2b4b93313dafc2530af
+guid: 46f56bb097be2d242b745979b2bcf77e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3881515105409835683
-    second: dapButtonBackground_0
+      213: -7879517666213496444
+    second: handshakeButtonBackground_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,11 +109,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dapButtonBackground_0
+      name: handshakeButtonBackground_0
       rect:
         serializedVersion: 2
         x: 0
@@ -127,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d5ddbb7a396122ac0800000000000000
-      internalID: -3881515105409835683
+      spriteID: 489fde71e6456a290800000000000000
+      internalID: -7879517666213496444
       vertices: []
       indices: 
       edges: []
@@ -143,7 +156,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      handshakeButtonBackground_0: -7879517666213496444
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

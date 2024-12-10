@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d1410704c95448f45baa58a39ee859b5
+guid: 56f167adba1111a46aae46700d6c5ec8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6387417227624149323
-    second: nextButton_0
+      213: -6705701347178890981
+    second: handshakeCloseup3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -97,7 +97,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Windows Store Apps
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: nextButton_0
+      name: handshakeCloseup3_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 265
-        height: 159
+        x: 509
+        y: 327
+        width: 854
+        height: 482
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -127,8 +127,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b417fb4602aa4a850800000000000000
-      internalID: 6387417227624149323
+      spriteID: b193b8f272090f2a0800000000000000
+      internalID: -6705701347178890981
       vertices: []
       indices: 
       edges: []

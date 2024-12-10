@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ef37e16e07a52ef438fa9e36ef0f43f1
+guid: 819f38c257647ba499889cf9f4a2eacc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3015295704125824019
-    second: dapResultsBackground_0
+      213: 3637573840475288718
+    second: saluteButtonBackground_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,17 +109,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dapResultsBackground_0
+      name: saluteButtonBackground_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1920
-        height: 1080
+        width: 265
+        height: 159
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -127,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 31c5e29977b78d920800000000000000
-      internalID: 3015295704125824019
+      spriteID: e8478cd92224b7230800000000000000
+      internalID: 3637573840475288718
       vertices: []
       indices: 
       edges: []
@@ -143,7 +156,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      saluteButtonBackground_0: 3637573840475288718
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

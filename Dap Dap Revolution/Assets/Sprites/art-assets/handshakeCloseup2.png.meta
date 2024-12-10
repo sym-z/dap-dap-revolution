@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 819f38c257647ba499889cf9f4a2eacc
+guid: ef461a292960d084d895320cec162dde
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3637573840475288718
-    second: saluteButtonBackground_0
+      213: 8112816998659195936
+    second: handshakeCloseup2_0
+  - first:
+      213: -8650897609292666784
+    second: handshakeCloseup2_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -97,7 +100,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Windows Store Apps
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -113,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: saluteButtonBackground_0
+      name: handshakeCloseup2_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 265
-        height: 159
+        x: 509
+        y: 326
+        width: 266
+        height: 482
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -127,8 +130,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e8478cd92224b7230800000000000000
-      internalID: 3637573840475288718
+      spriteID: 02405d4a314869070800000000000000
+      internalID: 8112816998659195936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: handshakeCloseup2_1
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 326
+        width: 560
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 068a5d17576d1f780800000000000000
+      internalID: -8650897609292666784
       vertices: []
       indices: 
       edges: []
