@@ -32,8 +32,19 @@ public class GameManager : MonoBehaviour
     public bool xKeyHit;
     public bool aKeyNext;
     public bool fKeyNext;
+    public bool xKeyNext;
     public bool inGoodbyeQTE;
     public bool KeysHit;
+    public Sprite salutePrefab;
+    public Sprite handshakePrefab;
+    public Sprite dapPrefab;
+    public Sprite nod;
+    public Sprite yes;
+    public Sprite no;
+    public AudioSource DanAudio;
+    public AudioClip approve;
+    public AudioClip greeting;
+    public AudioClip grumble;
 
 
 
@@ -46,6 +57,7 @@ public class GameManager : MonoBehaviour
         Activator(phase1Objects, false);
         goodbyeQTE = GameObject.FindGameObjectsWithTag("Goodbye");
         Activator(goodbyeQTE, false);
+        DanAudio.PlayOneShot(greeting);
     }
 
     public void continueButton(int buttonID)
@@ -63,6 +75,9 @@ public class GameManager : MonoBehaviour
                 break;
             case 4:
                 phase4();
+                break;
+            case 5:
+                phase5();
                 break;
             default:
                 break;
@@ -85,6 +100,11 @@ public class GameManager : MonoBehaviour
         opener.SetActive(true);
         whatsUpText.text = "You still on for Friday?";
         Activator(buttons, true);
+        GameObject button = buttons[0];
+        button.GetComponent<Image>().sprite = yes;
+        button = buttons[1];
+        button.GetComponent<Image>().sprite = no;
+        //buttons[2].SetActive(false);
         phase += 1;
     }
 
@@ -95,6 +115,7 @@ public class GameManager : MonoBehaviour
             case 1:
                 Activator(buttons, false);
                 whatsUpText.text = "Sounds great!";
+                DanAudio.PlayOneShot(approve);
                 score += 150;
                 phase += 1;
                 ContinueButton.SetActive(true);
@@ -102,6 +123,7 @@ public class GameManager : MonoBehaviour
             default:
                 Activator(buttons, false);
                 whatsUpText.text = "Cringe...";
+                DanAudio.PlayOneShot(grumble);
                 score += 0;
                 phase += 1;
                 ContinueButton.SetActive(true);
@@ -112,13 +134,22 @@ public class GameManager : MonoBehaviour
     private void phase4()   // Begins goodbye QTE choice
     {
         whatsUpText.text = ("Remember the goodbye?");
+        Activator(buttons, true);
+        GameObject button = buttons[0];
+        button.GetComponent<Image>().sprite = salutePrefab;
+        button = buttons[1];
+        button.GetComponent<Image>().sprite = nod;
+        phase += 1;
+        //whatsUpText.text = "Later.";
+        // Insert Sonic Unleashed style QTE
+    }
+    
+    private void phase5()
+    {
+        Activator(buttons, false);
         Activator(goodbyeQTE, true);
         inGoodbyeQTE = true;
         StartCoroutine(HugQTE(null, aKey));
-
-
-        //whatsUpText.text = "Later.";
-        // Insert Sonic Unleashed style QTE
     }
 
     public void dapHit() //Dap hit show text then on to phase 2
@@ -127,6 +158,7 @@ public class GameManager : MonoBehaviour
         GoodToSeeYouText.SetActive(true);
         ContinueButton.SetActive(true);
         dapHitCheck = true;
+        DanAudio.PlayOneShot(approve);
         //score += 300; // Commented out for testing
     }
 
@@ -147,6 +179,7 @@ public class GameManager : MonoBehaviour
         {
             dapMissedText.SetActive(true);
             ContinueButton.SetActive(true);
+            DanAudio.PlayOneShot(grumble);
         }
     }
 
@@ -170,6 +203,8 @@ public class GameManager : MonoBehaviour
         if (!KeysHit)
         {
             Activator(goodbyeQTE, false);
+            whatsUpText.text = "Really? You don't remember?\n(Goodbye failed)";
+            DanAudio.PlayOneShot(grumble);
         }
     }
 
@@ -185,13 +220,16 @@ public class GameManager : MonoBehaviour
         {
             case 1:
                 difficulty = .5f;
+                dapTarget.GetComponent<Image>().sprite = dapPrefab;
                 break;
             case 2:
                 difficulty = .75f;
+                dapTarget.GetComponent<Image>().sprite = handshakePrefab;
                 DapTargetRange.transform.localScale = endScale * 1.5f;
                 break;
             case 3:
                 difficulty = .25f;
+                dapTarget.GetComponent<Image>().sprite = dapPrefab;
                 DapTargetRange.transform.localScale = endScale * .5f;
                 break;
             default:
@@ -232,6 +270,8 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.X) && fKeyHit && aKeyHit && !xKeyHit)
             {
                 xKeyHit = true;
+                KeysHit = true;
+                xKeyNext = true;
             }
         }
 
@@ -248,7 +288,12 @@ public class GameManager : MonoBehaviour
         if (xKeyHit)
         {
             Activator(goodbyeQTE, false);
-            whatsUpText.text = "I'll see you later";
+        }
+        if (xKeyNext)
+        {
+            xKeyNext = false;
+            whatsUpText.text = "Nice. I'll see you later.";
+            DanAudio.PlayOneShot(approve);
         }
 
     }

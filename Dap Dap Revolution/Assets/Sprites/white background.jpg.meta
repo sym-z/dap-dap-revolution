@@ -1,25 +1,10 @@
 fileFormatVersion: 2
-guid: 0842426c19e02c04da62df098b2b1921
+guid: e0c60e835b1d9104491e1cfc7f091d49
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5145003334464256202
-    second: i-say_0
-  - first:
-      213: -4191428538183665578
-    second: i-say_1
-  - first:
-      213: -4452848569549170371
-    second: i-say_2
-  - first:
-      213: 4971895222363821728
-    second: i-say_3
-  - first:
-      213: 4956427581328929917
-    second: i-say_4
-  - first:
-      213: 6990113823325491486
-    second: i-say_5
+      213: -7172762459558789278
+    second: white background_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -128,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: i-say_0
+      name: white background_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 30
-        width: 120
-        height: 112
+        x: 0
+        y: 0
+        width: 1531
+        height: 980
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,113 +127,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ac831f6f549b66740800000000000000
-      internalID: 5145003334464256202
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: i-say_1
-      rect:
-        serializedVersion: 2
-        x: 148
-        y: 33
-        width: 70
-        height: 114
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 658b020a3fd05d5c0800000000000000
-      internalID: -4191428538183665578
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: i-say_2
-      rect:
-        serializedVersion: 2
-        x: 214
-        y: 35
-        width: 52
-        height: 113
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d395a6571dd4432c0800000000000000
-      internalID: -4452848569549170371
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: i-say_3
-      rect:
-        serializedVersion: 2
-        x: 263
-        y: 43
-        width: 52
-        height: 106
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0a6157dcc58bff440800000000000000
-      internalID: 4971895222363821728
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: i-say_4
-      rect:
-        serializedVersion: 2
-        x: 324
-        y: 82
-        width: 33
-        height: 75
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d743f0cff94c8c440800000000000000
-      internalID: 4956427581328929917
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: i-say_5
-      rect:
-        serializedVersion: 2
-        x: 318
-        y: 38
-        width: 32
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e111dd2bc7fd10160800000000000000
-      internalID: 6990113823325491486
+      spriteID: 26fbdb3cb8a357c90800000000000000
+      internalID: -7172762459558789278
       vertices: []
       indices: 
       edges: []
@@ -264,12 +144,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      i-say_0: 5145003334464256202
-      i-say_1: -4191428538183665578
-      i-say_2: -4452848569549170371
-      i-say_3: 4971895222363821728
-      i-say_4: 4956427581328929917
-      i-say_5: 6990113823325491486
+      white background_0: -7172762459558789278
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
