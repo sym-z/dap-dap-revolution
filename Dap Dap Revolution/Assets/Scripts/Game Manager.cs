@@ -6,7 +6,7 @@ using TMPro.Examples;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
+//using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,7 +22,20 @@ public class GameManager : MonoBehaviour
     public GameObject dapMissedText;
     private GameObject[] phase1Objects;
     public GameObject[] buttons;
+    public GameObject[] goodbyeQTE;
     private float difficulty = (1f);
+    public GameObject aKey;
+    public GameObject fKey;
+    public GameObject xKey;
+    public bool aKeyHit;
+    public bool fKeyHit;
+    public bool xKeyHit;
+    public bool aKeyNext;
+    public bool fKeyNext;
+    public bool inGoodbyeQTE;
+    public bool KeysHit;
+
+
 
     private void Start()
     {
@@ -31,6 +44,8 @@ public class GameManager : MonoBehaviour
         ContinueButton.SetActive(false);
         phase1Objects = GameObject.FindGameObjectsWithTag("Phase1");
         Activator(phase1Objects, false);
+        goodbyeQTE = GameObject.FindGameObjectsWithTag("Goodbye");
+        Activator(goodbyeQTE, false);
     }
 
     public void continueButton(int buttonID)
@@ -41,9 +56,9 @@ public class GameManager : MonoBehaviour
                 phase1(buttonID);
                 break;
             case 2:
-                phase2(); 
+                phase2();
                 break;
-             case 3:
+            case 3:
                 phase3(buttonID);
                 break;
             case 4:
@@ -96,7 +111,13 @@ public class GameManager : MonoBehaviour
 
     private void phase4()   // Begins goodbye QTE choice
     {
-        whatsUpText.text = "Later.";
+        whatsUpText.text = ("Remember the goodbye?");
+        Activator(goodbyeQTE, true);
+        inGoodbyeQTE = true;
+        StartCoroutine(HugQTE(null, aKey));
+
+
+        //whatsUpText.text = "Later.";
         // Insert Sonic Unleashed style QTE
     }
 
@@ -111,7 +132,7 @@ public class GameManager : MonoBehaviour
 
     private void Activator(GameObject[] objList, bool positive)
     {
-        foreach(GameObject obj in objList)
+        foreach (GameObject obj in objList)
         {
             obj.SetActive(positive);
         }
@@ -128,6 +149,30 @@ public class GameManager : MonoBehaviour
             ContinueButton.SetActive(true);
         }
     }
+
+    IEnumerator HugQTE(GameObject firstButton, GameObject secondButton)
+    {
+        if (firstButton != null)
+        {
+            Image firstimage = firstButton.GetComponent<Image>();
+            Color firstcolor = firstimage.color;
+            firstcolor = Color.green;
+            firstimage.color = firstcolor;
+        }
+        if (secondButton != null)
+        {
+            Image image = secondButton.GetComponent<Image>();
+            Color color = image.color;
+            color.a = 1f;
+            image.color = color;
+        }
+        yield return new WaitForSeconds(4f);
+        if (!KeysHit)
+        {
+            Activator(goodbyeQTE, false);
+        }
+    }
+
 
     //  Scales QTE target as time passes, granting points on time and greeting type
     IEnumerator targetScale(GameObject target, float timeLength, int dapType)
@@ -155,14 +200,14 @@ public class GameManager : MonoBehaviour
         while ((timeElapsed < targetTime) && dapHitCheck == false)
         {
             timeElapsed += Time.deltaTime;
-            target.transform.localScale = Vector3.Lerp(Vector3.zero, endScale*2, timeElapsed/targetTime);
+            target.transform.localScale = Vector3.Lerp(Vector3.zero, endScale * 2, timeElapsed / targetTime);
             yield return null;
         }
         Debug.Log(difficulty);
         // Calculates points on hit based on time taken
         if (dapHitCheck == true)
         {
-            float distanceRatio = Mathf.Abs(difficulty - (timeElapsed/targetTime));
+            float distanceRatio = Mathf.Abs(difficulty - (timeElapsed / targetTime));
             float ptsEarned = (-(Mathf.Pow(distanceRatio, 2f) * 300));
             score += (300 + (int)(ptsEarned));
             Debug.Log(score);
@@ -170,4 +215,41 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (inGoodbyeQTE)
+        {
+            if (Input.GetKeyDown(KeyCode.A) && !aKeyHit)
+            {
+                aKeyHit = true;
+                aKeyNext = true;
+            }
+            if (Input.GetKeyDown(KeyCode.F) && aKeyHit && !fKeyHit)
+            {
+                fKeyHit = true;
+                fKeyNext = true;
+            }
+            if (Input.GetKeyDown(KeyCode.X) && fKeyHit && aKeyHit && !xKeyHit)
+            {
+                xKeyHit = true;
+            }
+        }
+
+        if (aKeyNext)
+        {
+            aKeyNext = false;
+            StartCoroutine(HugQTE(aKey, fKey));
+        }
+        if (fKeyNext)
+        {
+            fKeyNext = false;
+            StartCoroutine(HugQTE(fKey, xKey));
+        }
+        if (xKeyHit)
+        {
+            Activator(goodbyeQTE, false);
+            whatsUpText.text = "I'll see you later";
+        }
+
+    }
 }
