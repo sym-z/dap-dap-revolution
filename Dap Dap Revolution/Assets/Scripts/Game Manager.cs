@@ -5,7 +5,9 @@ using TMPro;
 using TMPro.Examples;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 //using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
@@ -13,6 +15,8 @@ public class GameManager : MonoBehaviour
     private int phase = 1; //phase indicator
     private int score = 0;
     public TextMeshProUGUI whatsUpText;
+    public TextMeshProUGUI scoreUI;
+    public GameObject cutscene;
     public GameObject opener;
     public GameObject ContinueButton;
     public GameObject GoodToSeeYouText;
@@ -23,6 +27,8 @@ public class GameManager : MonoBehaviour
     private GameObject[] phase1Objects;
     public GameObject[] buttons;
     public GameObject[] goodbyeQTE;
+    public GameObject[] cutsceneObj;
+    private string animName;
     private float difficulty = (1f);
     public GameObject aKey;
     public GameObject fKey;
@@ -33,6 +39,7 @@ public class GameManager : MonoBehaviour
     public bool aKeyNext;
     public bool fKeyNext;
     public bool xKeyNext;
+    public Slider timeSlider;
     public bool inGoodbyeQTE;
     public bool KeysHit;
     public Sprite salutePrefab;
@@ -57,6 +64,8 @@ public class GameManager : MonoBehaviour
         Activator(phase1Objects, false);
         goodbyeQTE = GameObject.FindGameObjectsWithTag("Goodbye");
         Activator(goodbyeQTE, false);
+        cutsceneObj = GameObject.FindGameObjectsWithTag("Cutscene");
+        Activator(cutsceneObj, false);
         DanAudio.PlayOneShot(greeting);
     }
 
@@ -77,9 +86,10 @@ public class GameManager : MonoBehaviour
                 phase4();
                 break;
             case 5:
-                phase5();
+                phase5(buttonID);
                 break;
             default:
+                SceneManager.LoadScene("Score Menu");
                 break;
         }
     }
@@ -89,6 +99,15 @@ public class GameManager : MonoBehaviour
         opener.SetActive(false);
         Activator(buttons, false);
         Activator(phase1Objects, true);
+        opener.SetActive(true);
+        if (buttonID == 1)
+        {
+            whatsUpText.text = "Dap Me Up!!";
+        }
+        else
+        {
+            whatsUpText.text = "Put 'er there!";
+        }
         phase += 1;
         StartCoroutine(DapQTE(buttonID));
     }
@@ -117,6 +136,8 @@ public class GameManager : MonoBehaviour
                 whatsUpText.text = "Sounds great!";
                 DanAudio.PlayOneShot(approve);
                 score += 150;
+                scoreUI.text = "" + score;
+                ScoreManager.Instance.printScore(150);
                 phase += 1;
                 ContinueButton.SetActive(true);
                 break;
@@ -125,6 +146,7 @@ public class GameManager : MonoBehaviour
                 whatsUpText.text = "Cringe...";
                 DanAudio.PlayOneShot(grumble);
                 score += 0;
+                ScoreManager.Instance.printScore(0);
                 phase += 1;
                 ContinueButton.SetActive(true);
                 break;
@@ -144,17 +166,18 @@ public class GameManager : MonoBehaviour
         // Insert Sonic Unleashed style QTE
     }
     
-    private void phase5()
+    private void phase5(int buttonID)
     {
         Activator(buttons, false);
         Activator(goodbyeQTE, true);
         inGoodbyeQTE = true;
-        StartCoroutine(HugQTE(null, aKey));
+        StartCoroutine(HugQTE(null, aKey, false, buttonID));
     }
 
     public void dapHit() //Dap hit show text then on to phase 2
     {
         Activator(phase1Objects, false);
+        opener.SetActive(false);
         GoodToSeeYouText.SetActive(true);
         ContinueButton.SetActive(true);
         dapHitCheck = true;
@@ -175,6 +198,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(targetScale(dapTarget, 1.5f, buttonID));
         yield return new WaitForSeconds(1.5f);
         Activator(phase1Objects, false);
+        opener.SetActive(false);
         if (!dapHitCheck) //dap missed case
         {
             dapMissedText.SetActive(true);
@@ -183,8 +207,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator HugQTE(GameObject firstButton, GameObject secondButton)
+    IEnumerator HugQTE(GameObject firstButton, GameObject secondButton, bool started = true, int buttonID = 0)
     {
+        difficulty = 4f;
+        if (started == false)
+        {
+            started = true;
+            if (buttonID == 2)
+            {
+                difficulty = 2f;
+            }
+            StartCoroutine(sliderScale());
+
+        }
         if (firstButton != null)
         {
             Image firstimage = firstButton.GetComponent<Image>();
@@ -199,12 +234,14 @@ public class GameManager : MonoBehaviour
             color.a = 1f;
             image.color = color;
         }
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(difficulty);
         if (!KeysHit)
         {
             Activator(goodbyeQTE, false);
-            whatsUpText.text = "Really? You don't remember?\n(Goodbye failed)";
+            whatsUpText.text = "Really? You don't remember?";
             DanAudio.PlayOneShot(grumble);
+            phase++;
+            ContinueButton.SetActive(true);
         }
     }
 
@@ -225,12 +262,12 @@ public class GameManager : MonoBehaviour
             case 2:
                 difficulty = .75f;
                 dapTarget.GetComponent<Image>().sprite = handshakePrefab;
-                DapTargetRange.transform.localScale = endScale * 1.5f;
+                DapTargetRange.transform.localScale *= 1.5f;
                 break;
             case 3:
                 difficulty = .25f;
                 dapTarget.GetComponent<Image>().sprite = dapPrefab;
-                DapTargetRange.transform.localScale = endScale * .5f;
+                DapTargetRange.transform.localScale *= .5f;
                 break;
             default:
                 break;
@@ -245,12 +282,55 @@ public class GameManager : MonoBehaviour
         // Calculates points on hit based on time taken
         if (dapHitCheck == true)
         {
+            if (dapType == 1)
+            {
+                StartCoroutine(animPlayer("HandshakeAnim")); //DapAnimation
+            }
+            else
+            {
+                StartCoroutine(animPlayer("HandshakeAnim"));
+            }
             float distanceRatio = Mathf.Abs(difficulty - (timeElapsed / targetTime));
-            float ptsEarned = (-(Mathf.Pow(distanceRatio, 2f) * 300));
+            //float ptsEarned = (-(Mathf.Pow(distanceRatio, 2f) * 300));
+            float ptsEarned = -distanceRatio * 300;
             score += (300 + (int)(ptsEarned));
+            scoreUI.text = "" + score;
             Debug.Log(score);
             ScoreManager.Instance.printScore(score);
         }
+    }
+
+    IEnumerator sliderScale()
+    {
+        float timeElapsed = 0;
+        float targetTime = difficulty;
+        timeSlider.value = 0;
+        timeSlider.maxValue = targetTime;
+        // Changes timeframe and target size based on difficulty of introduction
+        while ((timeElapsed < targetTime) && KeysHit == false)
+        {
+            timeElapsed += Time.deltaTime;
+            timeSlider.value += Time.deltaTime;
+            yield return null;
+        }
+        Debug.Log(difficulty);
+        // Calculates points on hit based on time taken
+        if (KeysHit == true)
+        {
+            float ptsEarned = ((targetTime - timeElapsed)*(300/difficulty));
+            score += (int)(ptsEarned);
+            scoreUI.text = "" + score;
+            Debug.Log(score);
+            ScoreManager.Instance.printScore((int)(ptsEarned));
+        }
+    }
+
+    IEnumerator animPlayer(string clipName)
+    {
+        Activator(cutsceneObj, true);
+        cutscene.GetComponent<Animation>().Play(clipName);
+        yield return new WaitForSeconds(2);
+        Activator(cutsceneObj, false);
     }
 
     private void Update()
@@ -288,12 +368,16 @@ public class GameManager : MonoBehaviour
         if (xKeyHit)
         {
             Activator(goodbyeQTE, false);
+            inGoodbyeQTE = false;
         }
         if (xKeyNext)
         {
             xKeyNext = false;
+            StartCoroutine(animPlayer("SaluteAnim"));
             whatsUpText.text = "Nice. I'll see you later.";
             DanAudio.PlayOneShot(approve);
+            phase++;
+            ContinueButton.SetActive(true);
         }
 
     }

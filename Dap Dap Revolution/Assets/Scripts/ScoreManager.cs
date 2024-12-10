@@ -25,12 +25,23 @@ public class ScoreManager : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
+        scoreText.color = new Color(scoreText.color.r, scoreText.color.g, scoreText.color.b, 0f);
     }
 
     [SerializeField] TextMeshProUGUI scoreText;
+    private int[] scores = new int[4];
+    private int lvl = 0;
+
+    public int[] getScores()
+    {
+        return scores;
+    }
 
     public void printScore(int score)
     {
+        scores[lvl] = score;
+        lvl++;
+        scoreText.color = new Color(scoreText.color.r, scoreText.color.g, scoreText.color.b, 1f);
         scoreText.text = "+" + score.ToString() + " pts";
         StartCoroutine(scoreFade(1f));
     }

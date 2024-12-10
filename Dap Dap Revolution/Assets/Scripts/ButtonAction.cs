@@ -18,6 +18,10 @@ public class ButtonAction : MonoBehaviour
 
     void taskOnClick()
     {
+        if (buttonID == 9)
+        {
+            SceneManager.LoadScene("Fight scene");
+        }
         GameManagement.GetComponent<GameManager>().continueButton(buttonID);
         gameObject.SetActive(false);
     }
