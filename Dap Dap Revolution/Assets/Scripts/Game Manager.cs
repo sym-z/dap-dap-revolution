@@ -91,8 +91,11 @@ public class GameManager : MonoBehaviour
             case 5:
                 phase5(buttonID);
                 break;
-            default:
+            case 6:
                 SceneManager.LoadScene("Score Menu");
+                break;
+            default:
+                SceneManager.LoadScene("Fight scene");
                 break;
         }
     }

@@ -779,7 +779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   choiceButton: {fileID: 1920687517}
-  GameManagement: {fileID: 1011125772}
+  GameManagement: {fileID: 0}
   buttonID: 9
 --- !u!1 &1959963070
 GameObject:

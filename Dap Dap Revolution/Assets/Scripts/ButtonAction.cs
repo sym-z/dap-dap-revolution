@@ -27,7 +27,10 @@ public class ButtonAction : MonoBehaviour
             SceneManager.LoadScene("Main Menu");
             ScoreManager.Instance.resetScore();
         }
-        GameManagement.GetComponent<GameManager>().continueButton(buttonID);
+        if (GameManagement != null)
+        {
+            GameManagement.GetComponent<GameManager>().continueButton(buttonID);
+        }
         gameObject.SetActive(false);
     }
 }
