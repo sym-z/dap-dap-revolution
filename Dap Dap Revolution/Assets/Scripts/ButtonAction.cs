@@ -22,6 +22,11 @@ public class ButtonAction : MonoBehaviour
         {
             SceneManager.LoadScene("Fight scene");
         }
+        if (buttonID == 8)
+        {
+            SceneManager.LoadScene("Main Menu");
+            ScoreManager.Instance.resetScore();
+        }
         GameManagement.GetComponent<GameManager>().continueButton(buttonID);
         gameObject.SetActive(false);
     }

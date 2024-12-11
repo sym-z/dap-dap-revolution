@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private int score = 0;
     public TextMeshProUGUI whatsUpText;
     public TextMeshProUGUI scoreUI;
+    private Animator animator;
     public GameObject cutscene;
     public GameObject opener;
     public GameObject ContinueButton;
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
     public GameObject dapTarget;
     public GameObject DapTargetRange;
     public bool dapHitCheck = false;
+    private bool saluteCheck = true;
     public GameObject dapMissedText;
     private GameObject[] phase1Objects;
     public GameObject[] buttons;
@@ -57,6 +59,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        animator = cutscene.GetComponent<Animator>();
         buttons = GameObject.FindGameObjectsWithTag("choiceButton");
         Activator(buttons, true);
         ContinueButton.SetActive(false);
@@ -216,6 +219,7 @@ public class GameManager : MonoBehaviour
             if (buttonID == 2)
             {
                 difficulty = 2f;
+                saluteCheck = false;
             }
             StartCoroutine(sliderScale());
 
@@ -284,11 +288,11 @@ public class GameManager : MonoBehaviour
         {
             if (dapType == 1)
             {
-                StartCoroutine(animPlayer("HandshakeAnim")); //DapAnimation
+                StartCoroutine(animPlayer(0)); //DapAnimation
             }
             else
             {
-                StartCoroutine(animPlayer("HandshakeAnim"));
+                StartCoroutine(animPlayer(1));
             }
             float distanceRatio = Mathf.Abs(difficulty - (timeElapsed / targetTime));
             //float ptsEarned = (-(Mathf.Pow(distanceRatio, 2f) * 300));
@@ -325,11 +329,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator animPlayer(string clipName)
+    IEnumerator animPlayer(int clipNum)
     {
         Activator(cutsceneObj, true);
-        cutscene.GetComponent<Animation>().Play(clipName);
-        yield return new WaitForSeconds(2);
+        if (clipNum == 2)
+        {
+            cutscene.transform.rotation = Quaternion.identity;
+        }
+        animator.SetInteger("PhaseNum", clipNum);
+        yield return new WaitForSeconds(1.1f);
         Activator(cutsceneObj, false);
     }
 
@@ -373,7 +381,10 @@ public class GameManager : MonoBehaviour
         if (xKeyNext)
         {
             xKeyNext = false;
-            StartCoroutine(animPlayer("SaluteAnim"));
+            if (saluteCheck)
+            {
+                StartCoroutine(animPlayer(2));
+            }
             whatsUpText.text = "Nice. I'll see you later.";
             DanAudio.PlayOneShot(approve);
             phase++;

@@ -9,6 +9,7 @@ public class EndScore : MonoBehaviour
     public TextMeshProUGUI startText;
     public TextMeshProUGUI[] scoreTexts;
     public TextMeshProUGUI endText;
+    public GameObject again;
     private int endScore = 0;
     // Start is called before the first frame update
     void Start()
@@ -29,5 +30,7 @@ public class EndScore : MonoBehaviour
         }
         yield return new WaitForSeconds(1.5f);
         endText.text += endScore;
+        yield return new WaitForSeconds(1f);
+        again.SetActive(true);
     }
 }

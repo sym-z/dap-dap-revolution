@@ -46,6 +46,11 @@ public class ScoreManager : MonoBehaviour
         StartCoroutine(scoreFade(1f));
     }
 
+    public void resetScore()
+    {
+        lvl = 0;
+    }
+
     IEnumerator scoreFade(float timeLength)
     {
         float timeElapsed = 0;
